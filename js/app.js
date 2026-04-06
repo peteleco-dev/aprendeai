@@ -341,6 +341,10 @@ const App = {
       document.body.style.cursor = 'col-resize';
       document.body.style.userSelect = 'none';
       resizer.classList.add('dragging');
+      // Overlay over iframes so they don't swallow mouse events
+      document.querySelectorAll('iframe').forEach(f => {
+        f.style.pointerEvents = 'none';
+      });
     });
 
     document.addEventListener('mousemove', (e) => {
@@ -356,6 +360,10 @@ const App = {
       document.body.style.cursor = '';
       document.body.style.userSelect = '';
       resizer.classList.remove('dragging');
+      // Restore iframe pointer events
+      document.querySelectorAll('iframe').forEach(f => {
+        f.style.pointerEvents = '';
+      });
       // Refresh CodeMirror after resize
       if (typeof Editor !== 'undefined') {
         ['html', 'css', 'js'].forEach(lang => {
