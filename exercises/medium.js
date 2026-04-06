@@ -234,6 +234,14 @@ input.addEventListener('keydown', (e) => {
 });`,
   },
 
+  hints: [
+    'Use document.getElementById(\'nova-tarefa\').value para pegar o texto digitado. Valide se não está vazio com .trim() antes de continuar.',
+    'Para criar um item: const li = document.createElement(\'li\'). Adicione-o à lista com document.getElementById(\'lista-tarefas\').appendChild(li).',
+    'Crie um <span> com o texto da tarefa dentro do <li>. Adicione .addEventListener(\'click\', ...) no span e use li.classList.toggle(\'concluida\') para alternar o estado.',
+    'Adicione um botão de excluir dentro de cada <li>. No evento de click dele, chame li.remove() para remover o item da lista.',
+    'Após adicionar a tarefa, limpe o input com input.value = \'\' e use input.focus() para facilitar a digitação da próxima tarefa.',
+  ],
+
   rules: [
     {
       id: 'input-exists',

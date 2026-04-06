@@ -116,6 +116,14 @@ const App = {
               <p class="exercise-description">${exercise.description}</p>
               <h4>Requisitos:</h4>
               <ul id="checklist" class="checklist"></ul>
+              <div id="hints-panel" class="hints-panel" style="display:none">
+                <div class="hints-header">
+                  <span class="hints-title">💡 Dicas</span>
+                  <span id="hints-counter" class="hints-counter"></span>
+                </div>
+                <ul id="hints-list" class="hints-list"></ul>
+                <button id="btn-next-hint" class="btn-next-hint">Ver próxima dica</button>
+              </div>
             </div>
 
             <!-- Editor Tab -->
@@ -136,6 +144,7 @@ const App = {
             <div class="action-buttons">
               <button class="btn-primary btn-validate" id="btn-validate">▶ Validar Código</button>
               <button class="btn-secondary btn-reset" id="btn-reset">↺ Resetar</button>
+              <button class="btn-hint" id="btn-hints" title="Ver dicas">💡</button>
             </div>
           </div>
 
@@ -190,6 +199,9 @@ const App = {
 
     // Init pane resizer
     this._initPaneResizer();
+
+    // Init hints
+    this._initHints(exercise);
 
     // Init components
     Preview.init();
@@ -322,6 +334,40 @@ const App = {
     });
     document.querySelectorAll('.sol-tab-btn').forEach(b => b.classList.remove('active'));
     clickedBtn.classList.add('active');
+  },
+
+  _initHints(exercise) {
+    const hints = exercise.hints || [];
+    const btnHints = document.getElementById('btn-hints');
+    const panel = document.getElementById('hints-panel');
+    const list = document.getElementById('hints-list');
+    const counter = document.getElementById('hints-counter');
+    const btnNext = document.getElementById('btn-next-hint');
+    if (!btnHints || !panel) return;
+
+    let revealed = 0;
+
+    btnHints.addEventListener('click', () => {
+      if (hints.length === 0) { UI.toast('Nenhuma dica disponível para este exercício.', 'info'); return; }
+      panel.style.display = 'block';
+      // Switch to instructions tab if not visible
+      UI.switchLeftTab('instructions');
+      if (revealed === 0) revealNext();
+      panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    function revealNext() {
+      if (revealed >= hints.length) return;
+      const li = document.createElement('li');
+      li.className = 'hint-item';
+      li.innerHTML = `<span class="hint-number">${revealed + 1}</span><span class="hint-text">${hints[revealed]}</span>`;
+      list.appendChild(li);
+      revealed++;
+      counter.textContent = `${revealed}/${hints.length}`;
+      btnNext.style.display = revealed >= hints.length ? 'none' : 'block';
+    }
+
+    btnNext.addEventListener('click', revealNext);
   },
 
   _initPaneResizer() {

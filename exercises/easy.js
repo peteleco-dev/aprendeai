@@ -152,6 +152,14 @@ btn.addEventListener('click', () => {
 });`,
   },
 
+  hints: [
+    'Use document.getElementById(\'btn-cor\') para acessar o botão e adicione .addEventListener(\'click\', função) para reagir ao clique.',
+    'Crie uma variável let cliques = 0 fora do evento. Dentro do evento, incremente com cliques++ e atualize o texto com element.textContent.',
+    'Para atualizar o parágrafo: document.getElementById(\'contador\').textContent = \'Cliques: \' + cliques',
+    'Para gerar uma cor hex aleatória: \'#\' + Math.floor(Math.random() * 0xFFFFFF).toString(16).padStart(6, \'0\')',
+    'Aplique a cor com document.body.style.backgroundColor = cor. Guarde a última cor em uma variável e compare antes de aplicar para garantir que mude.',
+  ],
+
   rules: [
     {
       id: 'btn-exists',

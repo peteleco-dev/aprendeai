@@ -424,6 +424,14 @@ el('btn-reiniciar').onclick = () => {
 mostrarPergunta();`,
   },
 
+  hints: [
+    'Organize as perguntas em um array de objetos: { pergunta: \'...\', alternativas: [...], correta: 0 } onde correta é o índice da alternativa certa.',
+    'Renderize as alternativas dinamicamente: percorra o array com forEach, crie um <button> para cada uma e adicione um evento de click que chama uma função responder(indice).',
+    'Use setInterval para o timer. Guarde o id retornado (let timerInterval) para cancelar com clearInterval(timerInterval) quando o usuário responder ou o tempo acabar.',
+    'Ao responder, compare o índice clicado com correta. Se igual, incremente pontos e atualize o #placar. Destaque a resposta certa/errada com classList e desabilite os botões com .disabled = true.',
+    'Na tela de resultado, calcule a porcentagem com Math.round((pontos / perguntas.length) * 100) e mostre no #texto-resultado. Para reiniciar, reponha as variáveis e chame mostrarPergunta() novamente.',
+  ],
+
   rules: [
     {
       id: 'pergunta-exists',
