@@ -1,0 +1,160 @@
+/* ── Variáveis — Tema Dark ────────────────────────────────────────────────── */
+:root {
+  --bg:           #0f1117;
+  --bg-card:      #1a1d2e;
+  --bg-editor:    #1e2230;
+  --bg-pane:      #151824;
+  --bg-header:    #12141f;
+  --accent:       #7c3aed;
+  --accent-hover: #6d28d9;
+  --accent-light: #f5f3ff;
+  --text:         #e2e8f0;
+  --text-muted:   #94a3b8;
+  --text-subtle:  #64748b;
+  --success:      #22c55e;
+  --success-bg:   #052e16;
+  --error:        #ef4444;
+  --error-bg:     #2d0707;
+  --warning:      #f59e0b;
+  --warning-bg:   #2d1f00;
+  --border:       #2d3148;
+  --border-light: #1e2230;
+  --easy-color:   #22c55e;
+  --easy-bg:      #052e16;
+  --medium-color: #f59e0b;
+  --medium-bg:    #2d1f00;
+  --hard-color:   #ef4444;
+  --hard-bg:      #2d0707;
+  --radius-sm:    6px;
+  --radius-md:    10px;
+  --radius-lg:    16px;
+  --shadow-card:  0 4px 24px rgba(0,0,0,0.4);
+  --transition:   0.2s ease;
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ── Shell ────────────────────────────────────────────────────────────────── */
+#shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.site-header {
+  background: var(--bg-header);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.site-logo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+
+.site-logo .accent {
+  color: var(--accent);
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-link {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition), background var(--transition);
+}
+
+.nav-link:hover {
+  color: var(--text);
+  background: var(--border);
+}
+
+#view-container {
+  flex: 1;
+}
+
+/* ── Home View ────────────────────────────────────────────────────────────── */
+.home-view {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 56px 24px;
+}
+
+.home-hero {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -2px;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.hero-title .accent {
+  color: var(--accent);
+}
+
+.hero-subtitle {
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.exercises-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* ── Not Found ────────────────────────────────────────────────────────────── */
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 56px);
+  gap: 16px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.not-found h2 {
+  font-size: 1.5rem;
+  color: var(--text);
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-subtle); }

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AprendeAI — Exercícios de Programação</title>
+  <meta name="description" content="Aprenda JavaScript, HTML e CSS com exercícios práticos e progressivos.">
+
+  <!-- CSS Reset & Base Styles -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/components.css">
+
+  <!-- CodeMirror 5 via CDN (before editor.css so our overrides take precedence) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+
+  <!-- Editor overrides (after CDN to have higher specificity) -->
+  <link rel="stylesheet" href="css/editor.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closetag.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/selection/active-line.min.js"></script>
+</head>
+<body>
+  <div id="shell">
+
+    <!-- Site Header -->
+    <header class="site-header">
+      <a href="#/" class="site-logo">Aprende<span class="accent">AI</span></a>
+      <nav class="site-nav">
+        <a href="#/" class="nav-link">Exercícios</a>
+      </nav>
+    </header>
+
+    <!-- SPA View Container -->
+    <main id="view-container">
+      <!-- Views are injected here by the router -->
+    </main>
+
+    <!-- Site Footer (hidden on exercise view via CSS override in app.js) -->
+    <footer class="site-footer" id="site-footer">
+      Feito para aprender. Código aberto.
+    </footer>
+
+  </div>
+
+  <!-- Data & Exercise Definitions (load order matters) -->
+  <script src="data/exercises-meta.js"></script>
+  <script src="exercises/easy.js"></script>
+  <script src="exercises/medium.js"></script>
+  <script src="exercises/hard.js"></script>
+
+  <!-- Core Modules -->
+  <script src="js/store.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/preview.js"></script>
+  <script src="js/validator.js"></script>
+  <script src="js/editor.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
