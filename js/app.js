@@ -350,7 +350,7 @@ const App = {
     document.addEventListener('mousemove', (e) => {
       if (!dragging) return;
       const delta = e.clientX - startX;
-      const newWidth = Math.min(Math.max(startWidth + delta, 220), splitPane.offsetWidth - 220);
+      const newWidth = startWidth + delta;
       leftPane.style.width = newWidth + 'px';
     });
 

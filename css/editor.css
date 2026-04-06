@@ -15,8 +15,6 @@
 /* ── Left Pane ────────────────────────────────────────────────────────────── */
 .left-pane {
   width: 380px;
-  min-width: 280px;
-  max-width: 480px;
   flex-shrink: 0;
   background: var(--bg-pane);
   border-right: 1px solid var(--border);
