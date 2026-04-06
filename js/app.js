@@ -139,6 +139,9 @@ const App = {
             </div>
           </div>
 
+          <!-- Resizer -->
+          <div class="pane-resizer" id="pane-resizer" title="Arrastar para redimensionar"></div>
+
           <!-- RIGHT PANE -->
           <div class="right-pane">
             <div class="pane-tabs">
@@ -184,6 +187,9 @@ const App = {
         <!-- Hidden validation iframe -->
         <iframe id="validation-frame" sandbox="allow-scripts allow-same-origin" style="display:none" title="Validação"></iframe>
       </div>`;
+
+    // Init pane resizer
+    this._initPaneResizer();
 
     // Init components
     Preview.init();
@@ -316,6 +322,47 @@ const App = {
     });
     document.querySelectorAll('.sol-tab-btn').forEach(b => b.classList.remove('active'));
     clickedBtn.classList.add('active');
+  },
+
+  _initPaneResizer() {
+    const resizer = document.getElementById('pane-resizer');
+    const leftPane = document.querySelector('.left-pane');
+    const splitPane = document.querySelector('.split-pane');
+    if (!resizer || !leftPane || !splitPane) return;
+
+    let dragging = false;
+    let startX = 0;
+    let startWidth = 0;
+
+    resizer.addEventListener('mousedown', (e) => {
+      dragging = true;
+      startX = e.clientX;
+      startWidth = leftPane.offsetWidth;
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+      resizer.classList.add('dragging');
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!dragging) return;
+      const delta = e.clientX - startX;
+      const newWidth = Math.min(Math.max(startWidth + delta, 220), splitPane.offsetWidth - 220);
+      leftPane.style.width = newWidth + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+      if (!dragging) return;
+      dragging = false;
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+      resizer.classList.remove('dragging');
+      // Refresh CodeMirror after resize
+      if (typeof Editor !== 'undefined') {
+        ['html', 'css', 'js'].forEach(lang => {
+          if (Editor._instances[lang]) Editor._instances[lang].refresh();
+        });
+      }
+    });
   },
 
   renderNotFoundView() {
