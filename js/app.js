@@ -265,6 +265,15 @@ const App = {
     // Validate button
     document.getElementById('btn-validate').addEventListener('click', async () => {
       const btn = document.getElementById('btn-validate');
+
+      // Block validation if JS has a syntax error
+      if (Editor.hasSyntaxError()) {
+        UI.switchLeftTab('editor');
+        Editor.switchTab('js');
+        UI.toast('Corrija o erro de sintaxe no JS antes de validar.', 'error');
+        return;
+      }
+
       btn.textContent = '⌛ Validando...';
       btn.disabled = true;
 
