@@ -447,8 +447,10 @@ mostrarPergunta();`,
       test: async (doc) => {
         const container = doc.querySelector('#alternativas');
         if (!container) return false;
-        const botoesAlt = container.querySelectorAll('button');
-        return botoesAlt.length === 4;
+        // Accept buttons, onclick elements, role="button", or 4 direct children
+        const interactive = container.querySelectorAll('button, [onclick], [role="button"]');
+        return interactive.length === 4 ||
+          (interactive.length === 0 && container.children.length === 4);
       },
     },
     {
@@ -459,7 +461,8 @@ mostrarPergunta();`,
         const elPergunta = doc.querySelector('#texto-pergunta');
         if (!container || !elPergunta) return false;
         const perguntaAntes = elPergunta.textContent;
-        const btn = container.querySelector('button');
+        // Accept button, onclick element, role="button", or first child
+        const btn = container.querySelector('button, [onclick], [role="button"]') || container.firstElementChild;
         if (!btn) return false;
         btn.click();
         await new Promise(r => setTimeout(r, 1500));

@@ -300,12 +300,19 @@ input.addEventListener('keydown', (e) => {
         await new Promise(r => setTimeout(r, 100));
         const li = lista.querySelector('li');
         if (!li) return false;
-        const antes = { class: li.className, style: li.querySelector('span') ? li.querySelector('span').style.cssText : '' };
-        const clickable = li.querySelector('span') || li;
+        const win = doc.defaultView;
+        // Capture state: class, inline style, computed text-decoration and opacity
+        const getState = () => {
+          const textEl = li.querySelector('span, label, p') || li;
+          const cs = win.getComputedStyle(textEl);
+          return li.className + textEl.style.cssText + cs.textDecoration + cs.opacity + cs.color;
+        };
+        const antes = getState();
+        // Try clicking: checkbox first, then span/label, then the li itself
+        const clickable = li.querySelector('input[type="checkbox"]') || li.querySelector('span, label') || li;
         clickable.click();
         await new Promise(r => setTimeout(r, 100));
-        const depois = { class: li.className, style: li.querySelector('span') ? li.querySelector('span').style.cssText : '' };
-        return antes.class !== depois.class || antes.style !== depois.style;
+        return getState() !== antes;
       },
     },
     {
@@ -322,9 +329,11 @@ input.addEventListener('keydown', (e) => {
         const countAntes = lista.querySelectorAll('li').length;
         const li = lista.querySelector('li');
         if (!li) return false;
-        const deleteBtn = li.querySelector('button');
-        if (!deleteBtn) return false;
-        deleteBtn.click();
+        // Accept: button, element with onclick attr, or last child as fallback
+        const deleteEl = li.querySelector('button, [onclick]') ||
+          Array.from(li.children).slice(-1)[0];
+        if (!deleteEl) return false;
+        deleteEl.click();
         await new Promise(r => setTimeout(r, 100));
         return lista.querySelectorAll('li').length < countAntes;
       },

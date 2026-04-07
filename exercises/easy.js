@@ -186,11 +186,14 @@ btn.addEventListener('click', () => {
       test: async (doc) => {
         const btn = doc.querySelector('#btn-cor');
         if (!btn) return false;
-        const antes = doc.body.style.backgroundColor;
+        const win = doc.defaultView;
+        // Accept inline style OR CSS class/computed style changes
+        const getBg = () => doc.body.style.backgroundColor || win.getComputedStyle(doc.body).backgroundColor;
+        const antes = getBg();
         btn.click();
         await new Promise(r => setTimeout(r, 100));
-        const depois = doc.body.style.backgroundColor;
-        return depois !== '' && depois !== antes;
+        const depois = getBg();
+        return depois !== antes;
       },
     },
     {
@@ -212,12 +215,14 @@ btn.addEventListener('click', () => {
       test: async (doc) => {
         const btn = doc.querySelector('#btn-cor');
         if (!btn) return false;
+        const win = doc.defaultView;
+        const getBg = () => doc.body.style.backgroundColor || win.getComputedStyle(doc.body).backgroundColor;
         btn.click();
         await new Promise(r => setTimeout(r, 100));
-        const cor1 = doc.body.style.backgroundColor;
+        const cor1 = getBg();
         btn.click();
         await new Promise(r => setTimeout(r, 100));
-        const cor2 = doc.body.style.backgroundColor;
+        const cor2 = getBg();
         return cor1 !== '' && cor2 !== '' && cor1 !== cor2;
       },
     },
